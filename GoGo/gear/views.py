@@ -79,7 +79,7 @@ def vuelo_search_view(request):
 
 
             contexto_dict = {"HAWAII": vuelos_encontradas}
-            return render(request, "gear/vbc/sala_list.html", contexto_dict)
+            return render(request, "gear/vbc/vuelo_list.html", contexto_dict)
         else:
             return render(
                 request, "gear/form_search.html", context={"search_form": form}
