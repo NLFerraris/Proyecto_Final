@@ -11,6 +11,12 @@ from .views import (
     UserUpdateView,
     vuelo_search_view,
     avatar_view,
+    ReservaListView,
+    ReservaDetailView,
+    ReservaDeleteView,
+    ReservaUpdateView,
+    ReservaCreateView,
+    reserva_search_view,
 )
 
 urlpatterns = [
@@ -21,6 +27,12 @@ urlpatterns = [
     path("vuelo/<int:pk>/delete/", VueloDeleteView.as_view(), name="vuelo-delete"),
     path("vuelo/<int:pk>/update/", VueloUpdateView.as_view(), name="vuelo-update"),
     path('vuelo/buscar', vuelo_search_view, name="vuelo-buscar"),
+    path("reserva/list/", ReservaListView.as_view(), name="reserva-list"),
+    path("reserva/create/", ReservaCreateView.as_view(), name="reserva-create"),
+    path("reserva/<int:pk>/detail/", ReservaDetailView.as_view(), name="reserva-detail"),
+    path("reserva/<int:pk>/delete/", ReservaDeleteView.as_view(), name="reserva-delete"),
+    path("reserva/<int:pk>/update/", ReservaUpdateView.as_view(), name="reserva-update"),
+    path('reserva/buscar', reserva_search_view, name="reserva-buscar"),
     path("login/", user_login_view, name="login"),
     path("logout/", user_logout_view, name="logout"),
     path('editar-perfil/', UserUpdateView.as_view(), name='editar-perfil'),
