@@ -107,14 +107,14 @@ class ReservaDeleteView(LoginRequiredMixin, DeleteView):
 class ReservaUpdateView(LoginRequiredMixin, UpdateView):
     model = Reserva
     template_name = "gear/vbc/reserva_form.html"
-    fields = ["vuelo", "nombre_pasajero", "asientos_reservados"]
+    fields = ["vuelo", "nombre_de_usuario", "asientos_reservados"]
     context_object_name = "reserva"
     success_url = reverse_lazy("reserva-list")
 
 class ReservaCreateView(LoginRequiredMixin, CreateView):
     model = Reserva
     template_name = "gear/vbc/reserva_form.html"
-    fields = ["vuelo", "nombre_pasajero", "asientos_reservados"]
+    fields = ["vuelo", "nombre_de_usuario", "asientos_reservados"]
     success_url = reverse_lazy("reserva-list")
 
 def reserva_search_view(request):
@@ -126,13 +126,13 @@ def reserva_search_view(request):
     elif request.method == "POST":
         form = ReservaSearchForm(request.POST)
         if form.is_valid():
-            nombre_pasajero = form.cleaned_data["nombre_pasajero"]
+            nombre_de_usuario = form.cleaned_data["nombre_de_usuario"]
             vuelo = form.cleaned_data["vuelo"]
 
             reservas_encontradas = Reserva.objects.all()
 
-            if nombre_pasajero:
-                reservas_encontradas = reservas_encontradas.filter(nombre_pasajero__icontains=nombre_pasajero)
+            if nombre_de_usuario:
+                reservas_encontradas = reservas_encontradas.filter(nombre_de_usuario__icontains=nombre_de_usuario)
 
             if vuelo:
                 reservas_encontradas = reservas_encontradas.filter(vuelo=vuelo)

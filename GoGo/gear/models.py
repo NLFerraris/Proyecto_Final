@@ -38,6 +38,7 @@ class Reserva(models.Model):
     hora_inicio = models.TimeField(default=timezone.now)
     hora_fin = models.TimeField(default=timezone.now)
     descripcion = models.TextField(blank=True, null=True)
+    asientos_reservados = models.IntegerField(default=1)
 
     def __str__(self):
         return f"{self.nombre_de_usuario} - {self.vuelo.nombre} - {self.fecha}"
