@@ -91,7 +91,7 @@ def vuelo_search_view(request):
 
 class ReservaListView(LoginRequiredMixin, ListView):
     model = Reserva
-    template_name = "gear/reserva_list.html"
+    template_name = "gear/vbc/reserva_list.html"
     context_object_name = "reservas"
 
 class ReservaDetailView(LoginRequiredMixin, DetailView):
