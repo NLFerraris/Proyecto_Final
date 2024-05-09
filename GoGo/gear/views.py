@@ -88,15 +88,16 @@ def vuelo_search_view(request):
         
 
 #CRUD: Reserva
-class ReservaListView(LoginRequiredMixin,ListView):
-    model= Reserva
-    template_name = "gear/vbc/reserva_list.html"
-    context_object_name = "HAWAII"
 
-class ReservaDetailView(LoginRequiredMixin,DetailView):
-    model = Vuelo
+class ReservaListView(LoginRequiredMixin, ListView):
+    model = Reserva
+    template_name = "gear/reserva_list.html"
+    context_object_name = "reservas"
+
+class ReservaDetailView(LoginRequiredMixin, DetailView):
+    model = Reserva
     template_name = "gear/vbc/reserva_detail.html"
-    context_object_name = "TOKYO"
+    context_object_name = "reserva"
 
 class ReservaDeleteView(LoginRequiredMixin, DeleteView):
     model = Reserva
@@ -106,14 +107,14 @@ class ReservaDeleteView(LoginRequiredMixin, DeleteView):
 class ReservaUpdateView(LoginRequiredMixin, UpdateView):
     model = Reserva
     template_name = "gear/vbc/reserva_form.html"
-    fields = ["nombre", "disponible", "capacidad"]
+    fields = ["vuelo", "nombre_pasajero", "asientos_reservados"]
     context_object_name = "reserva"
     success_url = reverse_lazy("reserva-list")
 
 class ReservaCreateView(LoginRequiredMixin, CreateView):
     model = Reserva
     template_name = "gear/vbc/reserva_form.html"
-    fields = ["nombre","tipo", "disponible", "capacidad"]
+    fields = ["vuelo", "nombre_pasajero", "asientos_reservados"]
     success_url = reverse_lazy("reserva-list")
 
 def reserva_search_view(request):
@@ -125,30 +126,24 @@ def reserva_search_view(request):
     elif request.method == "POST":
         form = ReservaSearchForm(request.POST)
         if form.is_valid():
-            nombre_de_vuelo = form.cleaned_data["nombre"]
-            descartar_no_disponibles = form.cleaned_data["disponible"]
-            capacidad_minima = form.cleaned_data["capacidad_minima"]
-            tipo_de_vuelo = form.cleaned_data["tipo_de_vuelo"]
+            nombre_pasajero = form.cleaned_data["nombre_pasajero"]
+            vuelo = form.cleaned_data["vuelo"]
 
-            vuelos_encontradas = Vuelo.objects.filter(nombre__icontains=nombre_de_vuelo)
+            reservas_encontradas = Reserva.objects.all()
 
-            if descartar_no_disponibles:
-                vuelos_encontradas = vuelos_encontradas.filter( disponible=True)
+            if nombre_pasajero:
+                reservas_encontradas = reservas_encontradas.filter(nombre_pasajero__icontains=nombre_pasajero)
 
-            if capacidad_minima:
-                vuelos_encontradas = vuelos_encontradas.filter(capacidad__gte=capacidad_minima)
+            if vuelo:
+                reservas_encontradas = reservas_encontradas.filter(vuelo=vuelo)
 
-            if tipo_de_vuelo:
-                vuelos_encontradas = vuelos_encontradas.filter(tipo=tipo_de_vuelo)
-
-
-
-            contexto_dict = {"HAWAII": vuelos_encontradas}
+            contexto_dict = {"reservas": reservas_encontradas}
             return render(request, "gear/vbc/reserva_list.html", contexto_dict)
         else:
             return render(
                 request, "gear/form_search.html", context={"search_form": form}
             )
+
 
 #LOGIN/LOGOUT
 

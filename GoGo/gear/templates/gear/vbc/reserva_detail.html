@@ -1,5 +1,6 @@
 {% extends 'gear/base.html' %}
 
+
 {% block title %}Detalle de la Reserva{% endblock %}
 
 {% block content %}
@@ -12,14 +13,14 @@
                         Detalle de la Reserva
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ TOKYO.nombre }}</h5>
-                        {% if TOKYO.disponible %}
+                        <h5 class="card-title">{{ TORONTO.nombre }}</h5>
+                        {% if TORONTO.disponible %}
                         <h6 class="card-subtitle mb-2">Disponibilidad: Disponible</h6>
                         {% else %}
                         <h6 class="card-subtitle mb-2">Disponibilidad: No Disponible</h6>
                         {% endif %}
-                        <p class="card-text">Capacidad: {{ TOKYO.capacidad }}</p>
-                        <p class="card-text">Descripción: {{ TOKYO.descripcion | default:"No proporcionado" }}</p>
+                        <p class="card-text">Capacidad: {{ TORONTO.capacidad }}</p>
+                        <p class="card-text">Descripción: {{ TORONTO.descripcion | default:"No proporcionado" }}</p>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -35,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for reserva in TOKYO.reservas.all %}
+                            {% for reserva in TORONTO.reservas.all %}
                             <tr>
                                 <td>{{ reserva.nombre_de_usuario }}</td>
                                 <td>{{ reserva.fecha | date:"d/m/Y" }}</td>
