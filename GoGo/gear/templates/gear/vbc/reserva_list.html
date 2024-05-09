@@ -6,40 +6,45 @@
 <section class="py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Reserva</h2>
+            <h2 class="mb-0">Reservas</h2>
             <a href="{% url 'reserva-create' %}" class="btn btn-success">Crear Reserva</a>
         </div>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Disponible</th>
-                    <th scope="col">Capacidad</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Nombre de Usuario</th>
+                    <th scope="col">Vuelo</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora Inicio</th>
+                    <th scope="col">Hora Fin</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Asientos Reservados</th>
                     <th scope="col">Acciones</th>
-
                 </tr>
             </thead>
             <tbody>
-                {% if SINGAPUR %}
-                {% for reserva in SINGAPUR %}
+                {% if reservas %}
+                {% for reserva in reservas %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ reserva.nombre }}</td>
-                    <td>{{ reserva.disponible }}</td>
-                    <td>{{ reserva.capacidad }}</td>
-                    <td>{{ reserva.tipo }}</td>
+                    <td>{{ reserva.nombre_de_usuario.username }}</td>
+                    <td>{{ reserva.vuelo }}</td>
+                    <td>{{ reserva.fecha }}</td>
+                    <td>{{ reserva.hora_inicio }}</td>
+                    <td>{{ reserva.hora_fin }}</td>
+                    <td>{{ reserva.descripcion}}</td>
+                    <td>{{ reserva.asientos_reservados }}</td>
                     <td>
-                        <a href="{% url 'reserva-update' reserva.id %}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="{% url 'reserva-delete' reserva.id %}" class="btn btn-primary btn-sm">Eliminar</a>
-                        <a href="{% url 'reserva-detail' reserva.id %}" class="btn btn-primary btn-sm">Ver</a>
+                        <a href="{% url 'reserva-update' pk=reserva.pk %}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url 'reserva-delete' pk=reserva.pk %}" class="btn btn-primary btn-sm">Eliminar</a>
+                        <a href="{% url 'reserva-detail' pk=reserva.pk %}" class="btn btn-primary btn-sm">Ver</a>
                     </td>
                 </tr>
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="7">No hay Reservas.</td>
+                    <td colspan="9">No hay Reservas.</td>
                 </tr>
                 {% endif %}
             </tbody>
